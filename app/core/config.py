@@ -15,10 +15,14 @@ class DBSettings(BaseModel):
     max_overflow : int = 5
     
     
+class AuthSettings(BaseModel):
+    secret_key:str = os.getenv("SECRET_KEY")
+    algorithm:str = os.getenv("ALGORITHM")
+    
     
 class Settings(BaseSettings):
     db:DBSettings = DBSettings()
-
+    auth:AuthSettings = AuthSettings()
 
 
 settings = Settings()
