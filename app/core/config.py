@@ -18,6 +18,8 @@ class DBSettings(BaseModel):
 
 class AccessToken(BaseModel):
     lifetime_seconds: int = 3600
+    reset_password_key: str = os.getenv("RESET_PASSWORD_KEY")
+    verification_key: str = os.getenv("VERIFICATION_KEY")
 
 
 class Settings(BaseSettings):
