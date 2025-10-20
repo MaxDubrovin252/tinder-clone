@@ -16,6 +16,27 @@ class DBSettings(BaseModel):
     max_overflow: int = 5
 
 
+class APIV1Settings(BaseModel):
+    prefix: str = "/v1"
+    auth_prefix: str = "/auth"
+
+
+class ApiSettings(BaseModel):
+    prefix: str = "/api"
+    v1: APIV1Settings = APIV1Settings()
+
+    @property
+    def bearer_token_url(self):
+        parts = (
+            self.prefix,
+            self.v1.prefix,
+            self.v1.auth_prefix,
+            "/login",
+        )
+        path = "".join(parts)
+        return path.removeprefix("/")
+
+
 class AccessToken(BaseModel):
     lifetime_seconds: int = 3600
     reset_password_key: str = os.getenv("RESET_PASSWORD_KEY")
