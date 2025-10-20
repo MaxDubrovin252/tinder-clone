@@ -9,21 +9,20 @@ logging.info("Loading environment variables from .env file")
 
 load_dotenv()
 
+
 class DBSettings(BaseModel):
-    url:str = os.getenv("DB_URL")
-    echo:bool = False
-    max_overflow : int = 5
-    
-    
-class AuthSettings(BaseModel):
-    secret_key:str = os.getenv("SECRET_KEY")
-    algorithm:str = os.getenv("ALGORITHM")
-    
-    
+    url: str = os.getenv("DB_URL")
+    echo: bool = False
+    max_overflow: int = 5
+
+
+class AccessToken(BaseModel):
+    lifetime_seconds: int = 3600
+
+
 class Settings(BaseSettings):
-    db:DBSettings = DBSettings()
-    auth:AuthSettings = AuthSettings()
+    db: DBSettings = DBSettings()
+    access_token: AccessToken = AccessToken()
 
 
 settings = Settings()
-
